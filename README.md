@@ -84,6 +84,17 @@ The app opens at <http://localhost:8501>. On first launch it downloads the NLTK 
 
 Open the repository in GitHub Codespaces, or in VS Code with the Dev Containers extension. The container installs the requirements and starts the app automatically on port 8501.
 
+## Running the tests
+
+The unit tests in [tests/](tests/) cover the text preprocessing, labelling, inference and app helper functions in [helper.py](helper.py). They don't need network access: `twint` is stubbed out and Streamlit calls are replaced with fakes.
+
+```bash
+pip install -r requirements.txt -r requirements-dev.txt
+pytest
+```
+
+On a fresh machine, the first run downloads the NLTK data it needs. Tests marked `xfail` document known bugs and will start passing once those bugs are fixed.
+
 ## Known limitations
 
 - **URL Prediction may not work.** It depends on twint, which scrapes Twitter (now X) without the official API. Changes to the platform since 2023 have broken twint, so live scraping is likely to fail. Text Prediction works offline and is not affected.
